@@ -17,9 +17,16 @@ import {
   Building2,
   RefreshCw,
   History,
+  User,
+  Settings,
+  Moon,
+  Sun,
+  Globe,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/contexts/ThemeContext";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 // Mock exchange rate data with real-time simulation
 const getExchangeRate = () => ({
@@ -64,6 +71,8 @@ const recentTransactions = [
 
 export default function Index() {
   const navigate = useNavigate();
+  const { theme, setTheme, actualTheme } = useTheme();
+  const { language, setLanguage, t } = useLanguage();
   const [showBalance, setShowBalance] = useState(false);
   const [calculatorAmount, setCalculatorAmount] = useState("");
   const [exchangeRate, setExchangeRate] = useState(getExchangeRate());
@@ -93,11 +102,23 @@ export default function Index() {
     navigate("/history");
   };
 
+  const handleViewProfile = () => {
+    navigate("/profile");
+  };
+
   const handleQuickCalculator = () => {
     // Scroll to calculator section
     document.getElementById("calculator-section")?.scrollIntoView({
       behavior: "smooth",
     });
+  };
+
+  const toggleTheme = () => {
+    setTheme(actualTheme === "dark" ? "light" : "dark");
+  };
+
+  const toggleLanguage = () => {
+    setLanguage(language === "id" ? "en" : "id");
   };
 
   const refreshExchangeRate = async () => {
@@ -147,11 +168,11 @@ export default function Index() {
   const getStatusText = (status: string) => {
     switch (status) {
       case "completed":
-        return "Selesai";
+        return t("status.completed");
       case "processing":
-        return "Proses";
+        return t("status.processing");
       case "failed":
-        return "Gagal";
+        return t("status.failed");
       default:
         return "Unknown";
     }
@@ -173,61 +194,94 @@ export default function Index() {
   return (
     <Layout>
       <div className="container px-4 py-6 space-y-6 max-w-md mx-auto">
-        {/* Welcome Section */}
-        <div className="space-y-4">
+        {/* Header with Quick Settings */}
+        <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold">Selamat datang! 👋</h1>
-            <p className="text-muted-foreground">
-              Kirim uang ke Indonesia dengan mudah dan aman
-            </p>
+            <h1 className="text-2xl font-bold">{t("dashboard.welcome")}</h1>
+            <p className="text-muted-foreground">{t("dashboard.subtitle")}</p>
           </div>
-
-          {/* Balance Card - Fixed visibility issue */}
-          <Card
-            variant="elevated"
-            className="bg-gradient-to-r from-primary to-primary-600 text-white border-0"
-          >
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <p className="text-primary-100 text-sm">Saldo Anda</p>
-                  <div className="flex items-center gap-3 mt-1">
-                    <div className="flex-1">
-                      {showBalance ? (
-                        <span className="text-2xl font-bold">$2,450.00</span>
-                      ) : (
-                        <span className="text-2xl font-bold">••••••</span>
-                      )}
-                    </div>
-                    <Button
-                      variant="outline"
-                      size="icon"
-                      onClick={() => setShowBalance(!showBalance)}
-                      className="h-9 w-9 bg-white/20 text-white border-white/40 hover:bg-white/30 hover:border-white/60 transition-smooth flex-shrink-0"
-                    >
-                      {showBalance ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
-                    </Button>
-                  </div>
-                </div>
-                <DollarSign className="h-10 w-10 text-primary-100 ml-4" />
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Send Money Button */}
-          <Button
-            onClick={handleSendMoney}
-            size="lg"
-            className="w-full shadow-lg"
-          >
-            <Send className="h-5 w-5" />
-            Kirim Uang Sekarang
-          </Button>
+          <div className="flex items-center gap-2">
+            {/* Theme Toggle */}
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={toggleTheme}
+              className="h-10 w-10"
+            >
+              {actualTheme === "dark" ? (
+                <Sun className="h-4 w-4" />
+              ) : (
+                <Moon className="h-4 w-4" />
+              )}
+            </Button>
+            {/* Language Toggle */}
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={toggleLanguage}
+              className="h-10 w-10"
+            >
+              <Globe className="h-4 w-4" />
+            </Button>
+            {/* Profile Button */}
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleViewProfile}
+              className="h-10 w-10"
+            >
+              <User className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
+
+        {/* Balance Card - Fixed visibility issue */}
+        <Card
+          variant="elevated"
+          className="bg-gradient-to-r from-primary to-primary-600 text-white border-0"
+        >
+          <CardContent className="p-6">
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <p className="text-primary-100 text-sm">
+                  {t("dashboard.balance")}
+                </p>
+                <div className="flex items-center gap-3 mt-1">
+                  <div className="flex-1">
+                    {showBalance ? (
+                      <span className="text-2xl font-bold">$2,450.00</span>
+                    ) : (
+                      <span className="text-2xl font-bold">••••••</span>
+                    )}
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => setShowBalance(!showBalance)}
+                    className="h-9 w-9 bg-white/20 text-white border-white/40 hover:bg-white/30 hover:border-white/60 transition-smooth flex-shrink-0"
+                  >
+                    {showBalance ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                  </Button>
+                </div>
+              </div>
+              <DollarSign className="h-10 w-10 text-primary-100 ml-4" />
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Send Money Button */}
+        <Button
+          onClick={handleSendMoney}
+          size="lg"
+          className="w-full shadow-lg"
+        >
+          <Send className="h-5 w-5" />
+          {t("dashboard.sendMoney")}
+        </Button>
 
         {/* Exchange Rate Calculator */}
         <Card id="calculator-section">
@@ -235,7 +289,7 @@ export default function Index() {
             <CardTitle className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Calculator className="h-5 w-5 text-primary" />
-                Kalkulator Nilai Tukar
+                {t("exchange.title")}
               </div>
               <Button
                 variant="outline"
@@ -280,7 +334,7 @@ export default function Index() {
             <div className="space-y-3">
               <Input
                 type="number"
-                placeholder="Masukkan jumlah USD"
+                placeholder={t("exchange.enterAmount")}
                 value={calculatorAmount}
                 onChange={(e) => setCalculatorAmount(e.target.value)}
                 className="text-lg"
@@ -288,24 +342,27 @@ export default function Index() {
               {calculatorAmount && (
                 <div className="p-4 bg-success-50 border border-success-200 rounded-lg">
                   <p className="text-sm text-success-700 mb-1">
-                    Penerima akan dapat:
+                    {t("exchange.receiverWillGet")}
                   </p>
                   <p className="text-2xl font-bold text-success-700">
                     {calculateIDR(calculatorAmount)}
                   </p>
                   <p className="text-xs text-success-600 mt-2">
-                    *Belum termasuk biaya transfer ($4.99)
+                    {t("exchange.excludesFee")} ($4.99)
                   </p>
                 </div>
               )}
             </div>
 
             <p className="text-xs text-muted-foreground text-center">
-              Terakhir diperbarui:{" "}
-              {exchangeRate.lastUpdated.toLocaleTimeString("id-ID", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })}
+              {t("exchange.lastUpdated")}{" "}
+              {exchangeRate.lastUpdated.toLocaleTimeString(
+                language === "id" ? "id-ID" : "en-US",
+                {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                },
+              )}
             </p>
           </CardContent>
         </Card>
@@ -316,7 +373,7 @@ export default function Index() {
             <CardTitle className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Clock className="h-5 w-5 text-primary" />
-                Transaksi Terakhir
+                {t("dashboard.recentTransactions")}
               </div>
               <Button
                 variant="outline"
@@ -324,7 +381,7 @@ export default function Index() {
                 onClick={handleViewHistory}
                 className="text-primary border-primary/30 hover:bg-primary/10 hover:border-primary/50"
               >
-                Lihat Semua
+                {t("dashboard.viewAll")}
               </Button>
             </CardTitle>
           </CardHeader>
@@ -336,7 +393,7 @@ export default function Index() {
                   className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-smooth cursor-pointer"
                   onClick={() => {
                     alert(
-                      `Detail Transaksi:\nReferensi: ${transaction.reference}\nPenerima: ${transaction.recipient}\nBank: ${transaction.bank}\nJumlah: $${transaction.amount}\nStatus: ${getStatusText(transaction.status)}`,
+                      `${language === "id" ? "Detail Transaksi" : "Transaction Details"}:\nReferensi: ${transaction.reference}\nPenerima: ${transaction.recipient}\nBank: ${transaction.bank}\nJumlah: $${transaction.amount}\nStatus: ${getStatusText(transaction.status)}`,
                     );
                   }}
                 >
@@ -348,7 +405,9 @@ export default function Index() {
                       <p className="font-medium">{transaction.recipient}</p>
                       <p className="text-sm text-muted-foreground">
                         {transaction.bank} •{" "}
-                        {transaction.date.toLocaleDateString("id-ID")}
+                        {transaction.date.toLocaleDateString(
+                          language === "id" ? "id-ID" : "en-US",
+                        )}
                       </p>
                     </div>
                   </div>
@@ -376,13 +435,15 @@ export default function Index() {
             ) : (
               <div className="text-center py-8">
                 <Clock className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-                <p className="text-muted-foreground">Belum ada transaksi</p>
+                <p className="text-muted-foreground">
+                  {t("dashboard.noTransactions")}
+                </p>
                 <Button
                   variant="link"
                   onClick={handleSendMoney}
                   className="mt-2"
                 >
-                  Mulai kirim uang
+                  {t("dashboard.startSending")}
                 </Button>
               </div>
             )}
@@ -397,7 +458,9 @@ export default function Index() {
           >
             <CardContent className="p-4 text-center">
               <History className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium">Riwayat Lengkap</p>
+              <p className="text-sm font-medium">
+                {t("dashboard.fullHistory")}
+              </p>
             </CardContent>
           </Card>
           <Card
@@ -406,7 +469,7 @@ export default function Index() {
           >
             <CardContent className="p-4 text-center">
               <Calculator className="h-8 w-8 text-primary mx-auto mb-2" />
-              <p className="text-sm font-medium">Kalkulator</p>
+              <p className="text-sm font-medium">{t("dashboard.calculator")}</p>
             </CardContent>
           </Card>
         </div>
@@ -419,9 +482,9 @@ export default function Index() {
                 <Smartphone className="h-5 w-5 text-success" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-medium">Butuh bantuan?</p>
+                <p className="text-sm font-medium">{t("dashboard.needHelp")}</p>
                 <p className="text-xs text-muted-foreground">
-                  Hubungi kami via WhatsApp 24/7
+                  {t("dashboard.whatsappSupport")}
                 </p>
               </div>
               <Button
@@ -434,7 +497,7 @@ export default function Index() {
                 }}
                 className="border-success text-success hover:bg-success hover:text-white"
               >
-                Chat
+                {t("dashboard.chat")}
               </Button>
             </div>
           </CardContent>
