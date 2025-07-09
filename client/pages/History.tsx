@@ -237,6 +237,7 @@ KirimUang - Transfer Aman & Terpercaya
               size="sm"
               onClick={() => setStatusFilter("all")}
               className="whitespace-nowrap"
+              leftIcon={<Filter className="h-3 w-3" />}
             >
               Semua
             </Button>
@@ -245,6 +246,7 @@ KirimUang - Transfer Aman & Terpercaya
               size="sm"
               onClick={() => setStatusFilter("completed")}
               className="whitespace-nowrap"
+              leftIcon={<CheckCircle className="h-3 w-3" />}
             >
               Selesai
             </Button>
@@ -253,6 +255,7 @@ KirimUang - Transfer Aman & Terpercaya
               size="sm"
               onClick={() => setStatusFilter("processing")}
               className="whitespace-nowrap"
+              leftIcon={<Clock className="h-3 w-3" />}
             >
               Proses
             </Button>
@@ -261,6 +264,7 @@ KirimUang - Transfer Aman & Terpercaya
               size="sm"
               onClick={() => setStatusFilter("failed")}
               className="whitespace-nowrap"
+              leftIcon={<AlertCircle className="h-3 w-3" />}
             >
               Gagal
             </Button>
