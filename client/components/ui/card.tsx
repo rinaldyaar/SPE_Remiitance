@@ -14,9 +14,9 @@ const cardVariants = cva(
         trust: "border-trust/20 bg-primary-50",
       },
       padding: {
-        default: "p-6",
-        sm: "p-4",
-        lg: "p-8",
+        default: "p-4 sm:p-6",
+        sm: "p-3 sm:p-4",
+        lg: "p-6 sm:p-8",
         none: "p-0",
       },
     },
