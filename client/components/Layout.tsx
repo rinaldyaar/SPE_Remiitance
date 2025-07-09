@@ -80,11 +80,12 @@ export function Layout({
             {showBack && (
               <Button
                 variant="outline"
-                size="icon"
+                size="icon-sm"
                 onClick={handleBack}
-                className="h-10 w-10 bg-muted/50 border-border hover:bg-muted hover:border-primary touch-manipulation active:scale-95"
+                className="bg-muted/50 border-border hover:bg-muted hover:border-primary touch-manipulation active:scale-95"
+                title="Go back"
               >
-                <ArrowLeft className="h-5 w-5" />
+                <ArrowLeft className="h-4 w-4" />
               </Button>
             )}
             {title ? (
