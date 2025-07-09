@@ -132,12 +132,12 @@ export function Layout({
           <div className="container px-4 py-4">
             <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
               <Shield className="h-4 w-4 text-trust" />
-              <span>Terdaftar dan diawasi oleh Bank Indonesia</span>
+              <span>{t("trust.bankIndonesia")}</span>
             </div>
             <div className="flex items-center justify-center gap-4 mt-2 text-xs text-muted-foreground">
-              <span>🔒 SSL Encrypted</span>
-              <span>🛡️ FDIC Insured</span>
-              <span>📱 24/7 Support</span>
+              <span>🔒 {t("trust.sslEncrypted")}</span>
+              <span>🛡️ {t("trust.fdicInsured")}</span>
+              <span>📱 {t("trust.support247")}</span>
             </div>
           </div>
         </footer>
