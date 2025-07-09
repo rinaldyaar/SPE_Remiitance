@@ -217,7 +217,7 @@ KirimUang - Transfer Aman & Terpercaya
 
   return (
     <Layout title="Riwayat Transaksi" showBack={true}>
-      <div className="container px-4 py-6 max-w-md mx-auto">
+      <div className="w-full max-w-md mx-auto px-3 sm:px-4 py-4 sm:py-6">
         {/* Search and Filter */}
         <div className="space-y-4 mb-6">
           <div className="relative">
