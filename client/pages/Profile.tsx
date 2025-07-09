@@ -117,12 +117,12 @@ export default function Profile() {
   return (
     <Layout title={t("profile.title")} showBack={true}>
       <div className="w-full max-w-md mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6">
-        {/* Profile Header */}
+        {/* Profile Header - Responsive */}
         <Card variant="elevated">
-          <CardContent className="p-6">
-            <div className="flex items-center gap-4">
-              <div className="relative">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary-600 rounded-full flex items-center justify-center text-white text-2xl font-bold">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <div className="relative flex-shrink-0">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 bg-gradient-to-br from-primary to-primary-600 rounded-full flex items-center justify-center text-white text-lg sm:text-2xl font-bold">
                   {mockUser.name
                     .split(" ")
                     .map((n) => n[0])
@@ -131,29 +131,35 @@ export default function Profile() {
                 <Button
                   size="icon-sm"
                   variant="outline"
-                  className="absolute -bottom-1 -right-1 h-7 w-7 rounded-full border-2 border-background bg-background hover:bg-muted"
+                  className="absolute -bottom-1 -right-1 h-6 w-6 sm:h-7 sm:w-7 rounded-full border-2 border-background bg-background hover:bg-muted"
                   title="Change profile photo"
                 >
                   <Camera className="h-3 w-3" />
                 </Button>
               </div>
-              <div className="flex-1">
-                <h2 className="text-xl font-bold">{mockUser.name}</h2>
-                <p className="text-muted-foreground text-sm">
+              <div className="min-w-0 flex-1">
+                <h2 className="text-lg sm:text-xl font-bold truncate">
+                  {mockUser.name}
+                </h2>
+                <p className="text-muted-foreground text-xs sm:text-sm text-balance">
                   Member since{" "}
                   {mockUser.joinDate.toLocaleDateString(
                     language === "id" ? "id-ID" : "en-US",
                     { month: "long", year: "numeric" },
                   )}
                 </p>
-                <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
+                <div className="flex flex-col xs:flex-row xs:items-center gap-1 xs:gap-4 mt-2 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1">
-                    <UserCircle className="h-3 w-3" />
-                    {mockUser.totalTransactions} transaksi
+                    <UserCircle className="h-3 w-3 flex-shrink-0" />
+                    <span className="truncate">
+                      {mockUser.totalTransactions} transaksi
+                    </span>
                   </span>
                   <span className="flex items-center gap-1">
-                    <Smartphone className="h-3 w-3" />$
-                    {mockUser.totalSent.toLocaleString()} terkirim
+                    <Smartphone className="h-3 w-3 flex-shrink-0" />
+                    <span className="truncate">
+                      ${mockUser.totalSent.toLocaleString()} terkirim
+                    </span>
                   </span>
                 </div>
               </div>
