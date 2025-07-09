@@ -105,18 +105,21 @@ export default function Onboarding() {
 
         {/* Action Buttons */}
         <div className="space-y-3">
-          <Button onClick={handleNext} size="lg" className="w-full">
-            {currentStep < onboardingSteps.length - 1 ? (
-              <>
-                Lanjut
-                <ArrowRight className="h-5 w-5" />
-              </>
-            ) : (
-              <>
-                Mulai Transfer
-                <CheckCircle className="h-5 w-5" />
-              </>
-            )}
+          <Button
+            onClick={handleNext}
+            size="lg"
+            className="w-full"
+            rightIcon={
+              currentStep < onboardingSteps.length - 1 ? (
+                <ArrowRight />
+              ) : (
+                <CheckCircle />
+              )
+            }
+          >
+            {currentStep < onboardingSteps.length - 1
+              ? "Lanjut"
+              : "Mulai Transfer"}
           </Button>
 
           <Button variant="ghost" onClick={handleSkip} className="w-full">
