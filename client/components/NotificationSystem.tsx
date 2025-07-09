@@ -241,10 +241,10 @@ function NotificationItem({
             )}
           </div>
           <Button
-            variant="ghost"
+            variant="outline"
             size="icon"
             onClick={onDismiss}
-            className="h-6 w-6 text-muted-foreground hover:text-foreground"
+            className="h-6 w-6 bg-background/50 text-muted-foreground border-border/50 hover:text-foreground hover:bg-background hover:border-border"
           >
             <X className="h-4 w-4" />
           </Button>
