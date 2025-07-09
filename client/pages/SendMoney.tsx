@@ -595,6 +595,16 @@ export default function SendMoney() {
             onClick={handleNext}
             size="lg"
             className="w-full"
+            loading={isSubmitting}
+            rightIcon={
+              !isSubmitting ? (
+                currentStep < 3 ? (
+                  <ArrowRight />
+                ) : (
+                  <CheckCircle />
+                )
+              ) : undefined
+            }
             disabled={
               isSubmitting ||
               (currentStep === 1 &&
