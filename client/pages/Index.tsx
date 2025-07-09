@@ -196,14 +196,21 @@ export default function Index() {
 
   return (
     <Layout>
-      <div className="container px-4 py-6 space-y-6 max-w-md mx-auto">
-        {/* Header with Quick Settings */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">{t("dashboard.welcome")}</h1>
-            <p className="text-muted-foreground">{t("dashboard.subtitle")}</p>
+      {/* Main Container - Responsive */}
+      <div className="w-full max-w-md mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6">
+        {/* Header with Quick Settings - Responsive */}
+        <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-3 xs:gap-4">
+          <div className="min-w-0 flex-1">
+            <h1 className="text-responsive-2xl font-bold text-balance">
+              {t("dashboard.welcome")}
+            </h1>
+            <p className="text-responsive text-muted-foreground text-balance mt-1">
+              {t("dashboard.subtitle")}
+            </p>
           </div>
-          <div className="flex items-center gap-2">
+
+          {/* Quick Settings - Responsive Grid */}
+          <div className="flex items-center gap-2 flex-shrink-0">
             {/* Theme Toggle */}
             <Button
               variant="outline"
@@ -245,23 +252,27 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Balance Card - Enhanced */}
+        {/* Balance Card - Enhanced Responsive */}
         <Card
           variant="elevated"
           className="bg-gradient-to-r from-primary to-primary-600 text-white border-0"
         >
-          <CardContent className="p-6">
-            <div className="flex items-center justify-between">
-              <div className="flex-1">
-                <p className="text-primary-100 text-sm">
+          <CardContent className="p-4 sm:p-6">
+            <div className="flex items-center justify-between gap-4">
+              <div className="min-w-0 flex-1">
+                <p className="text-primary-100 text-sm sm:text-base mb-1">
                   {t("dashboard.balance")}
                 </p>
-                <div className="flex items-center gap-3 mt-1">
-                  <div className="flex-1">
+                <div className="flex items-center gap-3">
+                  <div className="min-w-0 flex-1">
                     {showBalance ? (
-                      <span className="text-2xl font-bold">$2,450.00</span>
+                      <span className="text-xl sm:text-2xl lg:text-3xl font-bold block">
+                        $2,450.00
+                      </span>
                     ) : (
-                      <span className="text-2xl font-bold">••••••</span>
+                      <span className="text-xl sm:text-2xl lg:text-3xl font-bold block">
+                        ••••••
+                      </span>
                     )}
                   </div>
                   <Button
@@ -279,37 +290,39 @@ export default function Index() {
                   </Button>
                 </div>
               </div>
-              <div className="ml-4 p-3 bg-white/10 rounded-full">
-                <DollarSign className="h-8 w-8 text-white" />
+              <div className="p-2 sm:p-3 bg-white/10 rounded-full flex-shrink-0">
+                <DollarSign className="h-6 w-6 sm:h-8 sm:w-8 text-white" />
               </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Send Money Button - Enhanced */}
+        {/* Send Money Button - Responsive */}
         <Button
           onClick={handleSendMoney}
           size="lg"
-          className="w-full shadow-lg"
+          className="w-full shadow-lg text-base sm:text-lg"
           leftIcon={<Send />}
         >
           {t("dashboard.sendMoney")}
         </Button>
 
-        {/* Exchange Rate Calculator */}
+        {/* Exchange Rate Calculator - Responsive */}
         <Card id="calculator-section">
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
+          <CardHeader className="pb-3 sm:pb-4">
+            <CardTitle className="flex flex-col xs:flex-row xs:items-center justify-between gap-2 xs:gap-4">
               <div className="flex items-center gap-2">
-                <Calculator className="h-5 w-5 text-primary" />
-                {t("exchange.title")}
+                <Calculator className="h-5 w-5 text-primary flex-shrink-0" />
+                <span className="text-responsive-lg">
+                  {t("exchange.title")}
+                </span>
               </div>
               <Button
                 variant="outline"
                 size="icon-sm"
                 onClick={refreshExchangeRate}
                 loading={isRefreshing}
-                className="bg-muted/50 border-border hover:bg-muted hover:border-primary"
+                className="bg-muted/50 border-border hover:bg-muted hover:border-primary flex-shrink-0"
                 title="Refresh exchange rate"
               >
                 <RefreshCw className="h-4 w-4" />
@@ -317,17 +330,17 @@ export default function Index() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
-            {/* Current Rate */}
-            <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
-              <div>
+            {/* Current Rate - Responsive */}
+            <div className="flex flex-col xs:flex-row xs:items-center justify-between gap-3 p-3 sm:p-4 bg-muted/50 rounded-lg">
+              <div className="min-w-0">
                 <p className="text-sm text-muted-foreground">1 USD =</p>
-                <p className="font-semibold text-lg">
+                <p className="font-semibold text-base sm:text-lg">
                   {formatCurrency(exchangeRate.rate)}
                 </p>
               </div>
               <div
                 className={cn(
-                  "flex items-center gap-1 text-sm font-medium px-2 py-1 rounded-full",
+                  "flex items-center gap-1 text-sm font-medium px-2 py-1 rounded-full flex-shrink-0",
                   exchangeRate.change >= 0
                     ? "text-success bg-success/10"
                     : "text-destructive bg-destructive/10",
@@ -338,25 +351,27 @@ export default function Index() {
                 ) : (
                   <ArrowDownRight className="h-3 w-3" />
                 )}
-                {Math.abs(exchangeRate.change).toFixed(2)}%
+                <span className="text-no-wrap">
+                  {Math.abs(exchangeRate.change).toFixed(2)}%
+                </span>
               </div>
             </div>
 
-            {/* Calculator */}
+            {/* Calculator Input - Responsive */}
             <div className="space-y-3">
               <Input
                 type="number"
                 placeholder={t("exchange.enterAmount")}
                 value={calculatorAmount}
                 onChange={(e) => setCalculatorAmount(e.target.value)}
-                className="text-lg"
+                className="text-responsive-lg"
               />
               {calculatorAmount && (
-                <div className="p-4 bg-success-50 border border-success-200 rounded-lg">
+                <div className="p-3 sm:p-4 bg-success-50 border border-success-200 rounded-lg">
                   <p className="text-sm text-success-700 mb-1">
                     {t("exchange.receiverWillGet")}
                   </p>
-                  <p className="text-2xl font-bold text-success-700">
+                  <p className="text-xl sm:text-2xl font-bold text-success-700 break-words">
                     {calculateIDR(calculatorAmount)}
                   </p>
                   <p className="text-xs text-success-600 mt-2">
@@ -379,19 +394,21 @@ export default function Index() {
           </CardContent>
         </Card>
 
-        {/* Recent Transactions */}
+        {/* Recent Transactions - Responsive */}
         <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
+          <CardHeader className="pb-3 sm:pb-4">
+            <CardTitle className="flex flex-col xs:flex-row xs:items-center justify-between gap-2 xs:gap-4">
               <div className="flex items-center gap-2">
-                <Clock className="h-5 w-5 text-primary" />
-                {t("dashboard.recentTransactions")}
+                <Clock className="h-5 w-5 text-primary flex-shrink-0" />
+                <span className="text-responsive-lg">
+                  {t("dashboard.recentTransactions")}
+                </span>
               </div>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleViewHistory}
-                className="text-primary border-primary/30 hover:bg-primary/10 hover:border-primary/50"
+                className="text-primary border-primary/30 hover:bg-primary/10 hover:border-primary/50 flex-shrink-0"
                 rightIcon={<ArrowUpRight />}
               >
                 {t("dashboard.viewAll")}
@@ -403,20 +420,22 @@ export default function Index() {
               recentTransactions.slice(0, 3).map((transaction) => (
                 <div
                   key={transaction.id}
-                  className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-smooth cursor-pointer group"
+                  className="flex items-center justify-between gap-3 p-3 sm:p-4 border border-border rounded-lg hover:bg-muted/50 transition-smooth cursor-pointer group"
                   onClick={() => {
                     alert(
                       `${language === "id" ? "Detail Transaksi" : "Transaction Details"}:\nReferensi: ${transaction.reference}\nPenerima: ${transaction.recipient}\nBank: ${transaction.bank}\nJumlah: $${transaction.amount}\nStatus: ${getStatusText(transaction.status)}`,
                     );
                   }}
                 >
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-smooth">
+                  <div className="flex items-center gap-3 min-w-0 flex-1">
+                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-smooth flex-shrink-0">
                       <Building2 className="h-5 w-5 text-primary" />
                     </div>
-                    <div className="flex-1">
-                      <p className="font-medium">{transaction.recipient}</p>
-                      <p className="text-sm text-muted-foreground">
+                    <div className="min-w-0 flex-1">
+                      <p className="font-medium text-responsive truncate">
+                        {transaction.recipient}
+                      </p>
+                      <p className="text-sm text-muted-foreground truncate">
                         {transaction.bank} •{" "}
                         {transaction.date.toLocaleDateString(
                           language === "id" ? "id-ID" : "en-US",
@@ -424,8 +443,10 @@ export default function Index() {
                       </p>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <p className="font-semibold">${transaction.amount}</p>
+                  <div className="text-right flex-shrink-0">
+                    <p className="font-semibold text-responsive">
+                      ${transaction.amount}
+                    </p>
                     <div className="flex items-center gap-1 justify-end">
                       <div
                         className={cn(
@@ -446,9 +467,9 @@ export default function Index() {
                 </div>
               ))
             ) : (
-              <div className="text-center py-8">
-                <Clock className="h-12 w-12 text-muted-foreground mx-auto mb-3" />
-                <p className="text-muted-foreground">
+              <div className="text-center py-6 sm:py-8">
+                <Clock className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground mx-auto mb-3" />
+                <p className="text-muted-foreground text-responsive mb-2">
                   {t("dashboard.noTransactions")}
                 </p>
                 <Button
@@ -464,17 +485,17 @@ export default function Index() {
           </CardContent>
         </Card>
 
-        {/* Quick Actions - Enhanced */}
-        <div className="grid grid-cols-2 gap-3">
+        {/* Quick Actions - Responsive Grid */}
+        <div className="grid grid-cols-2 gap-3 sm:gap-4">
           <Card
             className="cursor-pointer hover:shadow-md transition-smooth group"
             onClick={handleViewHistory}
           >
-            <CardContent className="p-4 text-center">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-primary/20 transition-smooth">
-                <History className="h-6 w-6 text-primary" />
+            <CardContent className="p-3 sm:p-4 text-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-primary/20 transition-smooth">
+                <History className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               </div>
-              <p className="text-sm font-medium">
+              <p className="text-xs sm:text-sm font-medium text-balance">
                 {t("dashboard.fullHistory")}
               </p>
             </CardContent>
@@ -483,25 +504,29 @@ export default function Index() {
             className="cursor-pointer hover:shadow-md transition-smooth group"
             onClick={handleQuickCalculator}
           >
-            <CardContent className="p-4 text-center">
-              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-primary/20 transition-smooth">
-                <Calculator className="h-6 w-6 text-primary" />
+            <CardContent className="p-3 sm:p-4 text-center">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-primary/20 transition-smooth">
+                <Calculator className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
               </div>
-              <p className="text-sm font-medium">{t("dashboard.calculator")}</p>
+              <p className="text-xs sm:text-sm font-medium text-balance">
+                {t("dashboard.calculator")}
+              </p>
             </CardContent>
           </Card>
         </div>
 
-        {/* Contact Support - Enhanced */}
+        {/* Contact Support - Responsive */}
         <Card className="bg-trust/5 border-trust/20">
-          <CardContent className="p-4">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-success/10 rounded-full flex items-center justify-center">
+          <CardContent className="p-3 sm:p-4">
+            <div className="flex flex-col xs:flex-row items-start xs:items-center gap-3">
+              <div className="w-10 h-10 bg-success/10 rounded-full flex items-center justify-center flex-shrink-0">
                 <Smartphone className="h-5 w-5 text-success" />
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-medium">{t("dashboard.needHelp")}</p>
-                <p className="text-xs text-muted-foreground">
+              <div className="min-w-0 flex-1">
+                <p className="text-sm sm:text-base font-medium text-balance">
+                  {t("dashboard.needHelp")}
+                </p>
+                <p className="text-xs sm:text-sm text-muted-foreground text-balance">
                   {t("dashboard.whatsappSupport")}
                 </p>
               </div>
@@ -513,7 +538,7 @@ export default function Index() {
                     "https://wa.me/6281234567890?text=Halo%2C%20saya%20butuh%20bantuan%20dengan%20aplikasi%20transfer%20uang";
                   window.open(whatsappUrl, "_blank");
                 }}
-                className="border-success text-success hover:bg-success hover:text-white"
+                className="border-success text-success hover:bg-success hover:text-white flex-shrink-0"
                 leftIcon={<Smartphone />}
               >
                 {t("dashboard.chat")}
