@@ -460,38 +460,51 @@ export default function Profile() {
               </div>
             </div>
 
-            {/* Notification Settings */}
+            {/* Notification Settings - Fixed responsive layout */}
             <div className="space-y-3">
               <label className="text-sm font-medium flex items-center gap-2">
                 <Bell className="h-4 w-4" />
                 {t("profile.notifications")}
               </label>
-              <div className="space-y-3">
+              <div className="space-y-3 sm:space-y-4">
                 {Object.entries(notifications).map(([key, value]) => (
-                  <div key={key} className="flex items-center justify-between">
-                    <span className="text-sm capitalize flex items-center gap-2">
-                      {key === "email" && <Mail className="h-3 w-3" />}
-                      {key === "push" && <Bell className="h-3 w-3" />}
-                      {key === "sms" && <Phone className="h-3 w-3" />}
-                      {key === "marketing" && (
-                        <MessageCircle className="h-3 w-3" />
-                      )}
-                      {key}
-                    </span>
+                  <div
+                    key={key}
+                    className="flex items-center justify-between gap-3 py-1"
+                  >
+                    <div className="flex items-center gap-2 min-w-0 flex-1">
+                      <div className="flex-shrink-0">
+                        {key === "email" && (
+                          <Mail className="h-3 w-3 sm:h-4 sm:w-4" />
+                        )}
+                        {key === "push" && (
+                          <Bell className="h-3 w-3 sm:h-4 sm:w-4" />
+                        )}
+                        {key === "sms" && (
+                          <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
+                        )}
+                        {key === "marketing" && (
+                          <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
+                        )}
+                      </div>
+                      <span className="text-sm sm:text-base capitalize truncate">
+                        {key}
+                      </span>
+                    </div>
                     <button
                       onClick={() =>
                         setNotifications({ ...notifications, [key]: !value })
                       }
                       className={cn(
-                        "relative w-11 h-6 rounded-full transition-smooth focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
+                        "relative w-10 h-5 sm:w-11 sm:h-6 rounded-full transition-smooth focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex-shrink-0",
                         value ? "bg-primary" : "bg-muted",
                       )}
                       title={`Toggle ${key} notifications`}
                     >
                       <div
                         className={cn(
-                          "absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-smooth",
-                          value ? "left-5" : "left-0.5",
+                          "absolute top-0.5 w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full shadow-sm transition-smooth",
+                          value ? "left-4 sm:left-5" : "left-0.5",
                         )}
                       />
                     </button>
