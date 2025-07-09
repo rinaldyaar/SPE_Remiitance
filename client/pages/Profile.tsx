@@ -23,6 +23,17 @@ import {
   Mail,
   MapPin,
   Camera,
+  Save,
+  UserCircle,
+  Languages,
+  Palette,
+  Eye,
+  Key,
+  ShieldCheck,
+  Phone,
+  LifeBuoy,
+  FileQuestion,
+  Power,
 } from "lucide-react";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -118,9 +129,10 @@ export default function Profile() {
                     .join("")}
                 </div>
                 <Button
-                  size="icon"
+                  size="icon-sm"
                   variant="outline"
-                  className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full border-2 border-background"
+                  className="absolute -bottom-1 -right-1 h-7 w-7 rounded-full border-2 border-background bg-background hover:bg-muted"
+                  title="Change profile photo"
                 >
                   <Camera className="h-3 w-3" />
                 </Button>
@@ -128,11 +140,21 @@ export default function Profile() {
               <div className="flex-1">
                 <h2 className="text-xl font-bold">{mockUser.name}</h2>
                 <p className="text-muted-foreground text-sm">
-                  {t("common.loading")}
+                  Member since{" "}
+                  {mockUser.joinDate.toLocaleDateString(
+                    language === "id" ? "id-ID" : "en-US",
+                    { month: "long", year: "numeric" },
+                  )}
                 </p>
                 <div className="flex items-center gap-4 mt-2 text-xs text-muted-foreground">
-                  <span>{mockUser.totalTransactions} transaksi</span>
-                  <span>${mockUser.totalSent.toLocaleString()} terkirim</span>
+                  <span className="flex items-center gap-1">
+                    <UserCircle className="h-3 w-3" />
+                    {mockUser.totalTransactions} transaksi
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Smartphone className="h-3 w-3" />$
+                    {mockUser.totalSent.toLocaleString()} terkirim
+                  </span>
                 </div>
               </div>
             </div>
@@ -143,14 +165,17 @@ export default function Profile() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <User className="h-5 w-5 text-primary" />
+              <UserCircle className="h-5 w-5 text-primary" />
               {t("profile.personalInfo")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Name */}
             <div className="space-y-2">
-              <label className="text-sm font-medium">{t("profile.name")}</label>
+              <label className="text-sm font-medium flex items-center gap-2">
+                <User className="h-4 w-4" />
+                {t("profile.name")}
+              </label>
               <div className="flex items-center gap-2">
                 {editingField === "name" ? (
                   <>
@@ -162,18 +187,20 @@ export default function Profile() {
                       className="flex-1"
                     />
                     <Button
-                      size="icon"
+                      size="icon-sm"
                       variant="outline"
                       onClick={() => handleSave("name")}
-                      className="h-10 w-10"
+                      className="h-10 w-10 bg-success/10 border-success/30 hover:bg-success hover:text-white"
+                      title="Save changes"
                     >
                       <Check className="h-4 w-4" />
                     </Button>
                     <Button
-                      size="icon"
+                      size="icon-sm"
                       variant="outline"
                       onClick={handleCancel}
-                      className="h-10 w-10"
+                      className="h-10 w-10 bg-destructive/10 border-destructive/30 hover:bg-destructive hover:text-white"
+                      title="Cancel changes"
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -184,10 +211,11 @@ export default function Profile() {
                       {formData.name}
                     </div>
                     <Button
-                      size="icon"
+                      size="icon-sm"
                       variant="outline"
                       onClick={() => handleEdit("name")}
-                      className="h-10 w-10"
+                      className="h-10 w-10 bg-muted/50 border-border hover:bg-muted hover:border-primary"
+                      title="Edit name"
                     >
                       <Edit className="h-4 w-4" />
                     </Button>
@@ -214,18 +242,20 @@ export default function Profile() {
                       className="flex-1"
                     />
                     <Button
-                      size="icon"
+                      size="icon-sm"
                       variant="outline"
                       onClick={() => handleSave("email")}
-                      className="h-10 w-10"
+                      className="h-10 w-10 bg-success/10 border-success/30 hover:bg-success hover:text-white"
+                      title="Save changes"
                     >
                       <Check className="h-4 w-4" />
                     </Button>
                     <Button
-                      size="icon"
+                      size="icon-sm"
                       variant="outline"
                       onClick={handleCancel}
-                      className="h-10 w-10"
+                      className="h-10 w-10 bg-destructive/10 border-destructive/30 hover:bg-destructive hover:text-white"
+                      title="Cancel changes"
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -236,10 +266,11 @@ export default function Profile() {
                       {formData.email}
                     </div>
                     <Button
-                      size="icon"
+                      size="icon-sm"
                       variant="outline"
                       onClick={() => handleEdit("email")}
-                      className="h-10 w-10"
+                      className="h-10 w-10 bg-muted/50 border-border hover:bg-muted hover:border-primary"
+                      title="Edit email"
                     >
                       <Edit className="h-4 w-4" />
                     </Button>
@@ -251,7 +282,7 @@ export default function Profile() {
             {/* Phone */}
             <div className="space-y-2">
               <label className="text-sm font-medium flex items-center gap-2">
-                <Smartphone className="h-4 w-4" />
+                <Phone className="h-4 w-4" />
                 {t("profile.phone")}
               </label>
               <div className="flex items-center gap-2">
@@ -266,18 +297,20 @@ export default function Profile() {
                       className="flex-1"
                     />
                     <Button
-                      size="icon"
+                      size="icon-sm"
                       variant="outline"
                       onClick={() => handleSave("phone")}
-                      className="h-10 w-10"
+                      className="h-10 w-10 bg-success/10 border-success/30 hover:bg-success hover:text-white"
+                      title="Save changes"
                     >
                       <Check className="h-4 w-4" />
                     </Button>
                     <Button
-                      size="icon"
+                      size="icon-sm"
                       variant="outline"
                       onClick={handleCancel}
-                      className="h-10 w-10"
+                      className="h-10 w-10 bg-destructive/10 border-destructive/30 hover:bg-destructive hover:text-white"
+                      title="Cancel changes"
                     >
                       <X className="h-4 w-4" />
                     </Button>
@@ -288,10 +321,11 @@ export default function Profile() {
                       {formData.phone}
                     </div>
                     <Button
-                      size="icon"
+                      size="icon-sm"
                       variant="outline"
                       onClick={() => handleEdit("phone")}
-                      className="h-10 w-10"
+                      className="h-10 w-10 bg-muted/50 border-border hover:bg-muted hover:border-primary"
+                      title="Edit phone"
                     >
                       <Edit className="h-4 w-4" />
                     </Button>
@@ -318,18 +352,20 @@ export default function Profile() {
                     />
                     <div className="flex flex-col gap-1">
                       <Button
-                        size="icon"
+                        size="icon-sm"
                         variant="outline"
                         onClick={() => handleSave("address")}
-                        className="h-10 w-10"
+                        className="h-10 w-10 bg-success/10 border-success/30 hover:bg-success hover:text-white"
+                        title="Save changes"
                       >
                         <Check className="h-4 w-4" />
                       </Button>
                       <Button
-                        size="icon"
+                        size="icon-sm"
                         variant="outline"
                         onClick={handleCancel}
-                        className="h-10 w-10"
+                        className="h-10 w-10 bg-destructive/10 border-destructive/30 hover:bg-destructive hover:text-white"
+                        title="Cancel changes"
                       >
                         <X className="h-4 w-4" />
                       </Button>
@@ -341,10 +377,11 @@ export default function Profile() {
                       {formData.address}
                     </div>
                     <Button
-                      size="icon"
+                      size="icon-sm"
                       variant="outline"
                       onClick={() => handleEdit("address")}
-                      className="h-10 w-10"
+                      className="h-10 w-10 bg-muted/50 border-border hover:bg-muted hover:border-primary"
+                      title="Edit address"
                     >
                       <Edit className="h-4 w-4" />
                     </Button>
@@ -367,7 +404,7 @@ export default function Profile() {
             {/* Language Selection */}
             <div className="space-y-3">
               <label className="text-sm font-medium flex items-center gap-2">
-                <Globe className="h-4 w-4" />
+                <Languages className="h-4 w-4" />
                 {t("profile.language")}
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -377,8 +414,8 @@ export default function Profile() {
                     variant={language === option.value ? "default" : "outline"}
                     onClick={() => setLanguage(option.value as "id" | "en")}
                     className="justify-start gap-2"
+                    leftIcon={<span className="text-lg">{option.flag}</span>}
                   >
-                    <span className="text-lg">{option.flag}</span>
                     {option.label}
                   </Button>
                 ))}
@@ -388,7 +425,7 @@ export default function Profile() {
             {/* Theme Selection */}
             <div className="space-y-3">
               <label className="text-sm font-medium flex items-center gap-2">
-                <Monitor className="h-4 w-4" />
+                <Palette className="h-4 w-4" />
                 {t("profile.theme")}
               </label>
               <div className="grid grid-cols-3 gap-2">
@@ -419,19 +456,28 @@ export default function Profile() {
               <div className="space-y-3">
                 {Object.entries(notifications).map(([key, value]) => (
                   <div key={key} className="flex items-center justify-between">
-                    <span className="text-sm capitalize">{key}</span>
+                    <span className="text-sm capitalize flex items-center gap-2">
+                      {key === "email" && <Mail className="h-3 w-3" />}
+                      {key === "push" && <Bell className="h-3 w-3" />}
+                      {key === "sms" && <Phone className="h-3 w-3" />}
+                      {key === "marketing" && (
+                        <MessageCircle className="h-3 w-3" />
+                      )}
+                      {key}
+                    </span>
                     <button
                       onClick={() =>
                         setNotifications({ ...notifications, [key]: !value })
                       }
                       className={cn(
-                        "relative w-11 h-6 rounded-full transition-smooth",
+                        "relative w-11 h-6 rounded-full transition-smooth focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
                         value ? "bg-primary" : "bg-muted",
                       )}
+                      title={`Toggle ${key} notifications`}
                     >
                       <div
                         className={cn(
-                          "absolute top-0.5 w-5 h-5 bg-white rounded-full transition-smooth",
+                          "absolute top-0.5 w-5 h-5 bg-white rounded-full shadow-sm transition-smooth",
                           value ? "left-5" : "left-0.5",
                         )}
                       />
@@ -452,12 +498,18 @@ export default function Profile() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <Lock className="h-4 w-4" />
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-3"
+              leftIcon={<Key />}
+            >
               {t("profile.changePassword")}
             </Button>
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <Shield className="h-4 w-4" />
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-3"
+              leftIcon={<ShieldCheck />}
+            >
               {t("profile.twoFactor")}
             </Button>
           </CardContent>
@@ -467,25 +519,28 @@ export default function Profile() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <MessageCircle className="h-5 w-5 text-primary" />
+              <LifeBuoy className="h-5 w-5 text-primary" />
               {t("profile.support")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <Button
               variant="outline"
-              className="w-full justify-start gap-2"
+              className="w-full justify-start gap-3"
               onClick={() => {
                 const whatsappUrl =
                   "https://wa.me/6281234567890?text=Halo%2C%20saya%20butuh%20bantuan%20dengan%20akun%20saya";
                 window.open(whatsappUrl, "_blank");
               }}
+              leftIcon={<MessageCircle />}
             >
-              <MessageCircle className="h-4 w-4" />
               {t("profile.contactSupport")}
             </Button>
-            <Button variant="outline" className="w-full justify-start gap-2">
-              <HelpCircle className="h-4 w-4" />
+            <Button
+              variant="outline"
+              className="w-full justify-start gap-3"
+              leftIcon={<FileQuestion />}
+            >
               {t("profile.faq")}
             </Button>
           </CardContent>
@@ -497,9 +552,9 @@ export default function Profile() {
             <Button
               variant="destructive"
               onClick={handleLogout}
-              className="w-full gap-2"
+              className="w-full gap-3"
+              leftIcon={<Power />}
             >
-              <LogOut className="h-4 w-4" />
               {t("profile.logout")}
             </Button>
           </CardContent>
