@@ -606,22 +606,11 @@ export default function SendMoney() {
                   !formData.accountNumber))
             }
           >
-            {isSubmitting ? (
-              <>
-                <RefreshCw className="h-5 w-5 animate-spin" />
-                Memproses...
-              </>
-            ) : currentStep < 3 ? (
-              <>
-                Lanjut
-                <ArrowRight className="h-5 w-5" />
-              </>
-            ) : (
-              <>
-                Kirim Sekarang
-                <CheckCircle className="h-5 w-5" />
-              </>
-            )}
+            {isSubmitting
+              ? "Memproses..."
+              : currentStep < 3
+                ? "Lanjut"
+                : "Kirim Sekarang"}
           </Button>
 
           {currentStep > 1 && !isSubmitting && (
