@@ -29,6 +29,7 @@ export function Layout({
 }: LayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useLanguage();
   const [isOnline, setIsOnline] = React.useState(navigator.onLine);
 
   // Monitor online status
