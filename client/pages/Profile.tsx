@@ -584,16 +584,19 @@ export default function Profile() {
           </CardContent>
         </Card>
 
-        {/* Logout */}
+        {/* Logout - Fixed responsive layout */}
         <Card className="border-destructive/20">
-          <CardContent className="p-4">
+          <CardContent className="p-3 sm:p-4">
             <Button
               variant="destructive"
               onClick={handleLogout}
-              className="w-full gap-3"
-              leftIcon={<Power />}
+              className="w-full gap-2 sm:gap-3 h-11 sm:h-12"
+              size="sm"
             >
-              {t("profile.logout")}
+              <Power className="h-4 w-4 flex-shrink-0" />
+              <span className="text-sm sm:text-base">
+                {t("profile.logout")}
+              </span>
             </Button>
           </CardContent>
         </Card>
