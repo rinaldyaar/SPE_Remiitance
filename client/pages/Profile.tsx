@@ -515,7 +515,7 @@ export default function Profile() {
           </CardContent>
         </Card>
 
-        {/* Security */}
+        {/* Security - Fixed responsive layout */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -526,22 +526,28 @@ export default function Profile() {
           <CardContent className="space-y-3">
             <Button
               variant="outline"
-              className="w-full justify-start gap-3"
-              leftIcon={<Key />}
+              className="w-full justify-start gap-2 sm:gap-3 h-11 sm:h-12 px-3 sm:px-4"
+              size="sm"
             >
-              {t("profile.changePassword")}
+              <Key className="h-4 w-4 flex-shrink-0" />
+              <span className="text-sm sm:text-base truncate">
+                {t("profile.changePassword")}
+              </span>
             </Button>
             <Button
               variant="outline"
-              className="w-full justify-start gap-3"
-              leftIcon={<ShieldCheck />}
+              className="w-full justify-start gap-2 sm:gap-3 h-11 sm:h-12 px-3 sm:px-4"
+              size="sm"
             >
-              {t("profile.twoFactor")}
+              <ShieldCheck className="h-4 w-4 flex-shrink-0" />
+              <span className="text-sm sm:text-base truncate">
+                {t("profile.twoFactor")}
+              </span>
             </Button>
           </CardContent>
         </Card>
 
-        {/* Support */}
+        {/* Support - Fixed responsive layout */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -552,22 +558,28 @@ export default function Profile() {
           <CardContent className="space-y-3">
             <Button
               variant="outline"
-              className="w-full justify-start gap-3"
+              className="w-full justify-start gap-2 sm:gap-3 h-11 sm:h-12 px-3 sm:px-4"
               onClick={() => {
                 const whatsappUrl =
                   "https://wa.me/6281234567890?text=Halo%2C%20saya%20butuh%20bantuan%20dengan%20akun%20saya";
                 window.open(whatsappUrl, "_blank");
               }}
-              leftIcon={<MessageCircle />}
+              size="sm"
             >
-              {t("profile.contactSupport")}
+              <MessageCircle className="h-4 w-4 flex-shrink-0" />
+              <span className="text-sm sm:text-base truncate">
+                {t("profile.contactSupport")}
+              </span>
             </Button>
             <Button
               variant="outline"
-              className="w-full justify-start gap-3"
-              leftIcon={<FileQuestion />}
+              className="w-full justify-start gap-2 sm:gap-3 h-11 sm:h-12 px-3 sm:px-4"
+              size="sm"
             >
-              {t("profile.faq")}
+              <FileQuestion className="h-4 w-4 flex-shrink-0" />
+              <span className="text-sm sm:text-base truncate">
+                {t("profile.faq")}
+              </span>
             </Button>
           </CardContent>
         </Card>
