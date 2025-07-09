@@ -245,7 +245,7 @@ export default function SendMoney() {
 
   return (
     <Layout title="Kirim Uang" showBack={true} showWhatsApp={true}>
-      <div className="container px-4 py-6 max-w-md mx-auto">
+      <div className="w-full max-w-md mx-auto px-3 sm:px-4 py-4 sm:py-6">
         {/* Progress Steps */}
         <div className="mb-6">
           <div className="flex items-center justify-between">
