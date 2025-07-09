@@ -319,10 +319,10 @@ export default function Index() {
                 Transaksi Terakhir
               </div>
               <Button
-                variant="ghost"
+                variant="outline"
                 size="sm"
                 onClick={handleViewHistory}
-                className="text-primary"
+                className="text-primary border-primary/30 hover:bg-primary/10 hover:border-primary/50"
               >
                 Lihat Semua
               </Button>
