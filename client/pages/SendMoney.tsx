@@ -193,12 +193,26 @@ export default function SendMoney() {
   const handleSend = async () => {
     setIsSubmitting(true);
     try {
+      // Notify transaction started
+      notifyTransactionStarted(formData.amount, formData.recipientName);
+
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 1500));
       const transactionId = "TXN-" + Date.now();
-      alert(
-        `✅ Transfer berhasil dikirim!\n\nID Transaksi: ${transactionId}\nPenerima: ${formData.recipientName}\nJumlah: ${formatUSD(parseFloat(formData.amount))}\n\nUang akan diterima dalam 5-15 menit.`,
+
+      // Notify processing
+      notifyTransactionProcessing(transactionId);
+
+      // Simulate processing time
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Notify success
+      notifyTransactionSuccess(
+        formData.amount,
+        formData.recipientName,
+        transactionId,
       );
+
       navigate("/");
     } catch (error) {
       alert("Terjadi kesalahan. Silakan coba lagi.");
