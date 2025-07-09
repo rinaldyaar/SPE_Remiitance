@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-lg text-base font-semibold ring-offset-background transition-smooth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 min-h-[52px] px-6 touch-manipulation active:scale-95 select-none",
+  "inline-flex items-center justify-center gap-2 sm:gap-2.5 whitespace-nowrap rounded-lg font-semibold ring-offset-background transition-smooth focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 touch-manipulation active:scale-95 select-none",
   {
     variants: {
       variant: {
@@ -13,23 +13,23 @@ const buttonVariants = cva(
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-lg shadow-destructive/20",
         outline:
-          "border-2 border-primary bg-background text-primary hover:bg-primary-50 active:bg-primary-100 shadow-sm",
+          "border border-primary bg-background text-primary hover:bg-primary-50 active:bg-primary-100 shadow-sm",
         secondary:
           "bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm",
         ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline min-h-[44px]",
+        link: "text-primary underline-offset-4 hover:underline",
         success:
           "bg-success text-success-foreground hover:bg-success-600 active:bg-success-700 shadow-lg shadow-success/20",
         trust:
           "bg-trust text-trust-foreground hover:bg-primary-600 active:bg-primary-700 shadow-lg shadow-trust/20",
       },
       size: {
-        default: "h-[52px] px-6 py-3",
-        sm: "h-10 px-4 py-2 text-sm gap-2",
-        lg: "h-[60px] px-8 py-4 text-lg gap-3",
-        icon: "h-[52px] w-[52px] px-0",
-        "icon-sm": "h-10 w-10 px-0 gap-0",
-        "icon-lg": "h-[60px] w-[60px] px-0 gap-0",
+        default: "h-11 sm:h-12 px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base",
+        sm: "h-9 sm:h-10 px-3 sm:px-4 py-2 text-xs sm:text-sm gap-1.5 sm:gap-2",
+        lg: "h-12 sm:h-14 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg gap-2 sm:gap-3",
+        icon: "h-11 w-11 sm:h-12 sm:w-12 px-0",
+        "icon-sm": "h-9 w-9 sm:h-10 sm:w-10 px-0 gap-0",
+        "icon-lg": "h-12 w-12 sm:h-14 sm:w-14 px-0 gap-0",
       },
     },
     defaultVariants: {
