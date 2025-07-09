@@ -57,6 +57,11 @@ const steps = [
 
 export default function SendMoney() {
   const navigate = useNavigate();
+  const {
+    notifyTransactionStarted,
+    notifyTransactionProcessing,
+    notifyTransactionSuccess,
+  } = useTransactionNotifications();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
     amount: "",
