@@ -116,7 +116,7 @@ export default function Profile() {
 
   return (
     <Layout title={t("profile.title")} showBack={true}>
-      <div className="container px-4 py-6 max-w-md mx-auto space-y-6">
+      <div className="w-full max-w-md mx-auto px-3 sm:px-4 py-4 sm:py-6 space-y-4 sm:space-y-6">
         {/* Profile Header */}
         <Card variant="elevated">
           <CardContent className="p-6">
