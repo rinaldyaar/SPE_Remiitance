@@ -109,10 +109,10 @@ export function Layout({
 
           {showWhatsApp && (
             <Button
-              variant="ghost"
+              variant="outline"
               size="icon"
               onClick={handleWhatsApp}
-              className="h-10 w-10 text-success hover:bg-success/10 touch-manipulation active:scale-95"
+              className="h-10 w-10 bg-success/10 text-success border-success/30 hover:bg-success/20 hover:border-success/50 touch-manipulation active:scale-95"
               aria-label="Hubungi Customer Service via WhatsApp"
             >
               <MessageCircle className="h-5 w-5" />
