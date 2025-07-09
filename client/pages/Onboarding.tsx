@@ -65,8 +65,8 @@ export default function Onboarding() {
   const IconComponent = step.icon;
 
   return (
-    <Layout className="justify-center p-4">
-      <div className="max-w-md mx-auto w-full space-y-8">
+    <Layout className="justify-center">
+      <div className="w-full max-w-md mx-auto px-3 sm:px-4 py-6 sm:py-8 space-y-6 sm:space-y-8">
         {/* Progress Indicator */}
         <div className="flex justify-center gap-2">
           {onboardingSteps.map((_, index) => (
