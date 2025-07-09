@@ -398,7 +398,7 @@ export default function Profile() {
           </CardContent>
         </Card>
 
-        {/* Preferences */}
+        {/* Preferences - Enhanced Responsive Auto Layout */}
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -406,26 +406,29 @@ export default function Profile() {
               {t("profile.preferences")}
             </CardTitle>
           </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Language Selection - Fixed responsive layout */}
-            <div className="space-y-3">
-              <label className="text-sm font-medium flex items-center gap-2">
-                <Languages className="h-4 w-4" />
-                {t("profile.language")}
+          <CardContent className="space-y-6 sm:space-y-8">
+            {/* Language Selection - Perfect Auto Layout */}
+            <div className="space-y-3 sm:space-y-4">
+              <label className="text-sm sm:text-base font-medium flex items-center gap-2">
+                <Languages className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                <span>{t("profile.language")}</span>
               </label>
-              <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 sm:gap-3">
+              <div className="grid grid-cols-1 gap-2 sm:gap-3">
                 {languageOptions.map((option) => (
                   <Button
                     key={option.value}
                     variant={language === option.value ? "default" : "outline"}
                     onClick={() => setLanguage(option.value as "id" | "en")}
-                    className="justify-start gap-2 sm:gap-3 h-11 sm:h-12 px-3 sm:px-4"
-                    size="sm"
+                    className={cn(
+                      "w-full justify-start gap-3 sm:gap-4 h-12 sm:h-14 px-4 sm:px-6 transition-all duration-200",
+                      "hover:scale-[1.02] active:scale-[0.98]",
+                    )}
+                    size="default"
                   >
-                    <span className="text-base sm:text-lg flex-shrink-0">
+                    <span className="text-lg sm:text-xl flex-shrink-0 w-6 h-6 flex items-center justify-center">
                       {option.flag}
                     </span>
-                    <span className="text-sm sm:text-base text-left truncate">
+                    <span className="text-sm sm:text-base font-medium text-left flex-1 min-w-0">
                       {option.label}
                     </span>
                   </Button>
@@ -433,11 +436,11 @@ export default function Profile() {
               </div>
             </div>
 
-            {/* Theme Selection - Fixed responsive layout */}
-            <div className="space-y-3">
-              <label className="text-sm font-medium flex items-center gap-2">
-                <Palette className="h-4 w-4" />
-                {t("profile.theme")}
+            {/* Theme Selection - Perfect Auto Layout */}
+            <div className="space-y-3 sm:space-y-4">
+              <label className="text-sm sm:text-base font-medium flex items-center gap-2">
+                <Palette className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                <span>{t("profile.theme")}</span>
               </label>
               <div className="grid grid-cols-3 gap-2 sm:gap-3">
                 {themeOptions.map((option) => {
@@ -447,11 +450,14 @@ export default function Profile() {
                       key={option.value}
                       variant={theme === option.value ? "default" : "outline"}
                       onClick={() => setTheme(option.value as any)}
-                      className="flex-col gap-1 sm:gap-2 h-auto py-2 sm:py-3 px-2 sm:px-3"
+                      className={cn(
+                        "flex-col gap-2 sm:gap-3 h-16 sm:h-20 px-2 sm:px-3 py-3 sm:py-4 transition-all duration-200",
+                        "hover:scale-[1.05] active:scale-[0.95]",
+                      )}
                       size="sm"
                     >
                       <Icon className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
-                      <span className="text-xs sm:text-sm text-center leading-tight">
+                      <span className="text-xs sm:text-sm font-medium text-center leading-tight">
                         {option.label}
                       </span>
                     </Button>
@@ -460,35 +466,35 @@ export default function Profile() {
               </div>
             </div>
 
-            {/* Notification Settings - Fixed responsive layout */}
-            <div className="space-y-3">
-              <label className="text-sm font-medium flex items-center gap-2">
-                <Bell className="h-4 w-4" />
-                {t("profile.notifications")}
+            {/* Notification Settings - Perfect Auto Layout */}
+            <div className="space-y-3 sm:space-y-4">
+              <label className="text-sm sm:text-base font-medium flex items-center gap-2">
+                <Bell className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                <span>{t("profile.notifications")}</span>
               </label>
               <div className="space-y-3 sm:space-y-4">
                 {Object.entries(notifications).map(([key, value]) => (
                   <div
                     key={key}
-                    className="flex items-center justify-between gap-3 py-1"
+                    className="flex items-center justify-between gap-4 py-2 sm:py-3 px-1"
                   >
-                    <div className="flex items-center gap-2 min-w-0 flex-1">
-                      <div className="flex-shrink-0">
+                    <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                      <div className="flex-shrink-0 w-5 h-5 flex items-center justify-center">
                         {key === "email" && (
-                          <Mail className="h-3 w-3 sm:h-4 sm:w-4" />
+                          <Mail className="h-4 w-4 sm:h-5 sm:w-5" />
                         )}
                         {key === "push" && (
-                          <Bell className="h-3 w-3 sm:h-4 sm:w-4" />
+                          <Bell className="h-4 w-4 sm:h-5 sm:w-5" />
                         )}
                         {key === "sms" && (
-                          <Phone className="h-3 w-3 sm:h-4 sm:w-4" />
+                          <Phone className="h-4 w-4 sm:h-5 sm:w-5" />
                         )}
                         {key === "marketing" && (
-                          <MessageCircle className="h-3 w-3 sm:h-4 sm:w-4" />
+                          <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5" />
                         )}
                       </div>
-                      <span className="text-sm sm:text-base capitalize truncate">
-                        {key}
+                      <span className="text-sm sm:text-base font-medium capitalize truncate">
+                        {key === "push" ? "Push" : key === "sms" ? "SMS" : key}
                       </span>
                     </div>
                     <button
@@ -496,17 +502,25 @@ export default function Profile() {
                         setNotifications({ ...notifications, [key]: !value })
                       }
                       className={cn(
-                        "relative w-10 h-5 sm:w-11 sm:h-6 rounded-full transition-smooth focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex-shrink-0",
-                        value ? "bg-primary" : "bg-muted",
+                        "relative rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 flex-shrink-0",
+                        "w-11 h-6 sm:w-12 sm:h-7",
+                        value ? "bg-primary shadow-md" : "bg-muted",
+                        "hover:scale-105 active:scale-95",
                       )}
                       title={`Toggle ${key} notifications`}
                     >
                       <div
                         className={cn(
-                          "absolute top-0.5 w-4 h-4 sm:w-5 sm:h-5 bg-white rounded-full shadow-sm transition-smooth",
-                          value ? "left-4 sm:left-5" : "left-0.5",
+                          "absolute top-0.5 rounded-full bg-white shadow-sm transition-all duration-300",
+                          "w-5 h-5 sm:w-6 sm:h-6",
+                          value ? "left-5 sm:left-5" : "left-0.5",
+                          "flex items-center justify-center",
                         )}
-                      />
+                      >
+                        {value && (
+                          <Check className="h-2.5 w-2.5 sm:h-3 sm:w-3 text-primary" />
+                        )}
+                      </div>
                     </button>
                   </div>
                 ))}
