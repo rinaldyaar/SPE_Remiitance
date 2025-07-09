@@ -200,10 +200,10 @@ export default function Index() {
                       )}
                     </div>
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="icon"
                       onClick={() => setShowBalance(!showBalance)}
-                      className="h-9 w-9 text-white hover:bg-white/10 border border-white/20 hover:border-white/30 transition-smooth flex-shrink-0"
+                      className="h-9 w-9 bg-white/20 text-white border-white/40 hover:bg-white/30 hover:border-white/60 transition-smooth flex-shrink-0"
                     >
                       {showBalance ? (
                         <EyeOff className="h-4 w-4" />
