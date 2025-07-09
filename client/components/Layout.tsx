@@ -77,10 +77,10 @@ export function Layout({
           <div className="flex items-center gap-3">
             {showBack && (
               <Button
-                variant="ghost"
+                variant="outline"
                 size="icon"
                 onClick={handleBack}
-                className="h-10 w-10 touch-manipulation active:scale-95"
+                className="h-10 w-10 bg-muted/50 border-border hover:bg-muted hover:border-primary touch-manipulation active:scale-95"
               >
                 <ArrowLeft className="h-5 w-5" />
               </Button>
