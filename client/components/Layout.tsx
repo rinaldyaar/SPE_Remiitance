@@ -113,12 +113,13 @@ export function Layout({
           {showWhatsApp && (
             <Button
               variant="outline"
-              size="icon"
+              size="icon-sm"
               onClick={handleWhatsApp}
-              className="h-10 w-10 bg-success/10 text-success border-success/30 hover:bg-success/20 hover:border-success/50 touch-manipulation active:scale-95"
+              className="bg-success/10 text-success border-success/30 hover:bg-success/20 hover:border-success/50 touch-manipulation active:scale-95"
               aria-label="Hubungi Customer Service via WhatsApp"
+              title="Contact WhatsApp Support"
             >
-              <MessageCircle className="h-5 w-5" />
+              <MessageCircle className="h-4 w-4" />
             </Button>
           )}
         </div>
