@@ -246,22 +246,22 @@ export default function SendMoney() {
   return (
     <Layout title="Kirim Uang" showBack={true} showWhatsApp={true}>
       <div className="w-full max-w-md mx-auto px-3 sm:px-4 py-4 sm:py-6">
-        {/* Progress Steps */}
-        <div className="mb-6">
+        {/* Progress Steps - Responsive */}
+        <div className="mb-4 sm:mb-6">
           <div className="flex items-center justify-between">
             {steps.map((step, index) => (
               <div key={step.id} className="flex-1">
                 <div className="flex items-center">
                   <div
                     className={cn(
-                      "w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold transition-smooth",
+                      "w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center text-xs sm:text-sm font-semibold transition-smooth",
                       currentStep >= step.id
                         ? "bg-primary text-primary-foreground"
                         : "bg-muted text-muted-foreground",
                     )}
                   >
                     {currentStep > step.id ? (
-                      <CheckCircle className="h-4 w-4" />
+                      <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4" />
                     ) : (
                       step.id
                     )}
@@ -269,13 +269,13 @@ export default function SendMoney() {
                   {index < steps.length - 1 && (
                     <div
                       className={cn(
-                        "flex-1 h-0.5 mx-2 transition-smooth",
+                        "flex-1 h-0.5 mx-1 sm:mx-2 transition-smooth",
                         currentStep > step.id ? "bg-primary" : "bg-muted",
                       )}
                     />
                   )}
                 </div>
-                <p className="text-xs text-muted-foreground mt-1 text-center">
+                <p className="text-xs text-muted-foreground mt-1 text-center text-balance">
                   {step.title}
                 </p>
               </div>
