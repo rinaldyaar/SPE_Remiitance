@@ -22,6 +22,9 @@ import {
   Moon,
   Sun,
   Globe,
+  Palette,
+  Languages,
+  UserCircle,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -204,9 +207,12 @@ export default function Index() {
             {/* Theme Toggle */}
             <Button
               variant="outline"
-              size="icon"
+              size="icon-sm"
               onClick={toggleTheme}
-              className="h-10 w-10"
+              className="bg-muted/50 border-border hover:bg-muted hover:border-primary transition-smooth"
+              title={
+                actualTheme === "dark" ? t("theme.light") : t("theme.dark")
+              }
             >
               {actualTheme === "dark" ? (
                 <Sun className="h-4 w-4" />
@@ -214,28 +220,32 @@ export default function Index() {
                 <Moon className="h-4 w-4" />
               )}
             </Button>
+
             {/* Language Toggle */}
             <Button
               variant="outline"
-              size="icon"
+              size="icon-sm"
               onClick={toggleLanguage}
-              className="h-10 w-10"
+              className="bg-muted/50 border-border hover:bg-muted hover:border-primary transition-smooth"
+              title={language === "id" ? "English" : "Bahasa Indonesia"}
             >
-              <Globe className="h-4 w-4" />
+              <Languages className="h-4 w-4" />
             </Button>
+
             {/* Profile Button */}
             <Button
               variant="outline"
-              size="icon"
+              size="icon-sm"
               onClick={handleViewProfile}
-              className="h-10 w-10"
+              className="bg-muted/50 border-border hover:bg-muted hover:border-primary transition-smooth"
+              title={t("profile.title")}
             >
-              <User className="h-4 w-4" />
+              <UserCircle className="h-4 w-4" />
             </Button>
           </div>
         </div>
 
-        {/* Balance Card - Fixed visibility issue */}
+        {/* Balance Card - Enhanced */}
         <Card
           variant="elevated"
           className="bg-gradient-to-r from-primary to-primary-600 text-white border-0"
@@ -256,9 +266,10 @@ export default function Index() {
                   </div>
                   <Button
                     variant="outline"
-                    size="icon"
+                    size="icon-sm"
                     onClick={() => setShowBalance(!showBalance)}
-                    className="h-9 w-9 bg-white/20 text-white border-white/40 hover:bg-white/30 hover:border-white/60 transition-smooth flex-shrink-0"
+                    className="bg-white/20 text-white border-white/40 hover:bg-white/30 hover:border-white/60 transition-smooth flex-shrink-0"
+                    title={showBalance ? "Hide balance" : "Show balance"}
                   >
                     {showBalance ? (
                       <EyeOff className="h-4 w-4" />
@@ -268,18 +279,20 @@ export default function Index() {
                   </Button>
                 </div>
               </div>
-              <DollarSign className="h-10 w-10 text-primary-100 ml-4" />
+              <div className="ml-4 p-3 bg-white/10 rounded-full">
+                <DollarSign className="h-8 w-8 text-white" />
+              </div>
             </div>
           </CardContent>
         </Card>
 
-        {/* Send Money Button */}
+        {/* Send Money Button - Enhanced */}
         <Button
           onClick={handleSendMoney}
           size="lg"
           className="w-full shadow-lg"
+          leftIcon={<Send />}
         >
-          <Send className="h-5 w-5" />
           {t("dashboard.sendMoney")}
         </Button>
 
@@ -293,14 +306,13 @@ export default function Index() {
               </div>
               <Button
                 variant="outline"
-                size="icon"
+                size="icon-sm"
                 onClick={refreshExchangeRate}
-                disabled={isRefreshing}
-                className="h-8 w-8 bg-muted/50 border-border hover:bg-muted hover:border-primary"
+                loading={isRefreshing}
+                className="bg-muted/50 border-border hover:bg-muted hover:border-primary"
+                title="Refresh exchange rate"
               >
-                <RefreshCw
-                  className={cn("h-4 w-4", isRefreshing && "animate-spin")}
-                />
+                <RefreshCw className="h-4 w-4" />
               </Button>
             </CardTitle>
           </CardHeader>
@@ -315,16 +327,16 @@ export default function Index() {
               </div>
               <div
                 className={cn(
-                  "flex items-center gap-1 text-sm font-medium",
+                  "flex items-center gap-1 text-sm font-medium px-2 py-1 rounded-full",
                   exchangeRate.change >= 0
-                    ? "text-success"
-                    : "text-destructive",
+                    ? "text-success bg-success/10"
+                    : "text-destructive bg-destructive/10",
                 )}
               >
                 {exchangeRate.change >= 0 ? (
-                  <ArrowUpRight className="h-4 w-4" />
+                  <ArrowUpRight className="h-3 w-3" />
                 ) : (
-                  <ArrowDownRight className="h-4 w-4" />
+                  <ArrowDownRight className="h-3 w-3" />
                 )}
                 {Math.abs(exchangeRate.change).toFixed(2)}%
               </div>
@@ -380,6 +392,7 @@ export default function Index() {
                 size="sm"
                 onClick={handleViewHistory}
                 className="text-primary border-primary/30 hover:bg-primary/10 hover:border-primary/50"
+                rightIcon={<ArrowUpRight />}
               >
                 {t("dashboard.viewAll")}
               </Button>
@@ -390,7 +403,7 @@ export default function Index() {
               recentTransactions.slice(0, 3).map((transaction) => (
                 <div
                   key={transaction.id}
-                  className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-smooth cursor-pointer"
+                  className="flex items-center justify-between p-4 border border-border rounded-lg hover:bg-muted/50 transition-smooth cursor-pointer group"
                   onClick={() => {
                     alert(
                       `${language === "id" ? "Detail Transaksi" : "Transaction Details"}:\nReferensi: ${transaction.reference}\nPenerima: ${transaction.recipient}\nBank: ${transaction.bank}\nJumlah: $${transaction.amount}\nStatus: ${getStatusText(transaction.status)}`,
@@ -398,7 +411,7 @@ export default function Index() {
                   }}
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center">
+                    <div className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center group-hover:bg-primary/20 transition-smooth">
                       <Building2 className="h-5 w-5 text-primary" />
                     </div>
                     <div className="flex-1">
@@ -442,6 +455,7 @@ export default function Index() {
                   variant="link"
                   onClick={handleSendMoney}
                   className="mt-2"
+                  leftIcon={<Send />}
                 >
                   {t("dashboard.startSending")}
                 </Button>
@@ -450,25 +464,29 @@ export default function Index() {
           </CardContent>
         </Card>
 
-        {/* Quick Actions - Now Functional */}
+        {/* Quick Actions - Enhanced */}
         <div className="grid grid-cols-2 gap-3">
           <Card
-            className="cursor-pointer hover:shadow-md transition-smooth"
+            className="cursor-pointer hover:shadow-md transition-smooth group"
             onClick={handleViewHistory}
           >
             <CardContent className="p-4 text-center">
-              <History className="h-8 w-8 text-primary mx-auto mb-2" />
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-primary/20 transition-smooth">
+                <History className="h-6 w-6 text-primary" />
+              </div>
               <p className="text-sm font-medium">
                 {t("dashboard.fullHistory")}
               </p>
             </CardContent>
           </Card>
           <Card
-            className="cursor-pointer hover:shadow-md transition-smooth"
+            className="cursor-pointer hover:shadow-md transition-smooth group"
             onClick={handleQuickCalculator}
           >
             <CardContent className="p-4 text-center">
-              <Calculator className="h-8 w-8 text-primary mx-auto mb-2" />
+              <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-2 group-hover:bg-primary/20 transition-smooth">
+                <Calculator className="h-6 w-6 text-primary" />
+              </div>
               <p className="text-sm font-medium">{t("dashboard.calculator")}</p>
             </CardContent>
           </Card>
@@ -496,6 +514,7 @@ export default function Index() {
                   window.open(whatsappUrl, "_blank");
                 }}
                 className="border-success text-success hover:bg-success hover:text-white"
+                leftIcon={<Smartphone />}
               >
                 {t("dashboard.chat")}
               </Button>
