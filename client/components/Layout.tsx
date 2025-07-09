@@ -1,7 +1,14 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ArrowLeft, MessageCircle, Shield, Banknote } from "lucide-react";
+import {
+  ArrowLeft,
+  MessageCircle,
+  Shield,
+  Banknote,
+  Wifi,
+  WifiOff,
+} from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 interface LayoutProps {
@@ -21,16 +28,49 @@ export function Layout({
 }: LayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const [isOnline, setIsOnline] = React.useState(navigator.onLine);
+
+  // Monitor online status
+  React.useEffect(() => {
+    const handleOnline = () => setIsOnline(true);
+    const handleOffline = () => setIsOnline(false);
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
 
   const handleWhatsApp = () => {
     // Indonesian WhatsApp support number (example)
     const whatsappUrl =
-      "https://wa.me/6281234567890?text=Halo%2C%20saya%20butuh%20bantuan%20dengan%20aplikasi%20transfer%20uang";
+      "https://wa.me/6281234567890?text=Halo%2C%20saya%20butuh%20bantuan%20dengan%20aplikasi%20transfer%20uang%20KirimUang";
     window.open(whatsappUrl, "_blank");
+  };
+
+  const handleBack = () => {
+    if (window.history.length > 1) {
+      navigate(-1);
+    } else {
+      navigate("/");
+    }
   };
 
   return (
     <div className="min-h-screen bg-background flex flex-col safe-area-inset">
+      {/* Offline indicator */}
+      {!isOnline && (
+        <div className="bg-yellow-500 text-white text-center py-2 px-4 text-sm font-medium">
+          <div className="flex items-center justify-center gap-2">
+            <WifiOff className="h-4 w-4" />
+            <span>Tidak ada koneksi internet</span>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header className="sticky top-0 z-50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
         <div className="container flex h-16 items-center justify-between px-4">
@@ -39,14 +79,14 @@ export function Layout({
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => navigate(-1)}
-                className="h-10 w-10"
+                onClick={handleBack}
+                className="h-10 w-10 touch-manipulation active:scale-95"
               >
                 <ArrowLeft className="h-5 w-5" />
               </Button>
             )}
             {title ? (
-              <h1 className="text-xl font-semibold">{title}</h1>
+              <h1 className="text-xl font-semibold text-balance">{title}</h1>
             ) : (
               <div className="flex items-center gap-2">
                 <div className="flex items-center gap-1">
@@ -54,6 +94,14 @@ export function Layout({
                   <span className="text-xl font-bold text-primary">
                     KirimUang
                   </span>
+                </div>
+                {/* Online status indicator */}
+                <div className="flex items-center gap-1">
+                  {isOnline ? (
+                    <Wifi className="h-3 w-3 text-success" />
+                  ) : (
+                    <WifiOff className="h-3 w-3 text-muted-foreground" />
+                  )}
                 </div>
               </div>
             )}
@@ -64,7 +112,8 @@ export function Layout({
               variant="ghost"
               size="icon"
               onClick={handleWhatsApp}
-              className="h-10 w-10 text-success"
+              className="h-10 w-10 text-success hover:bg-success/10 touch-manipulation active:scale-95"
+              aria-label="Hubungi Customer Service via WhatsApp"
             >
               <MessageCircle className="h-5 w-5" />
             </Button>
@@ -82,6 +131,11 @@ export function Layout({
             <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
               <Shield className="h-4 w-4 text-trust" />
               <span>Terdaftar dan diawasi oleh Bank Indonesia</span>
+            </div>
+            <div className="flex items-center justify-center gap-4 mt-2 text-xs text-muted-foreground">
+              <span>🔒 SSL Encrypted</span>
+              <span>🛡️ FDIC Insured</span>
+              <span>📱 24/7 Support</span>
             </div>
           </div>
         </footer>
