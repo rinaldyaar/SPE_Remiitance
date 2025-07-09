@@ -242,11 +242,12 @@ function NotificationItem({
           </div>
           <Button
             variant="outline"
-            size="icon"
+            size="icon-sm"
             onClick={onDismiss}
             className="h-6 w-6 bg-background/50 text-muted-foreground border-border/50 hover:text-foreground hover:bg-background hover:border-border"
+            title="Dismiss notification"
           >
-            <X className="h-4 w-4" />
+            <X className="h-3 w-3" />
           </Button>
         </div>
       </CardContent>
