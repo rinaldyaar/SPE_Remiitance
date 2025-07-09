@@ -10,6 +10,7 @@ import {
   WifiOff,
 } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface LayoutProps {
   children: React.ReactNode;
