@@ -238,11 +238,11 @@ export default function Index() {
                 Kalkulator Nilai Tukar
               </div>
               <Button
-                variant="ghost"
+                variant="outline"
                 size="icon"
                 onClick={refreshExchangeRate}
                 disabled={isRefreshing}
-                className="h-8 w-8"
+                className="h-8 w-8 bg-muted/50 border-border hover:bg-muted hover:border-primary"
               >
                 <RefreshCw
                   className={cn("h-4 w-4", isRefreshing && "animate-spin")}
