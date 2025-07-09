@@ -407,34 +407,39 @@ export default function Profile() {
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            {/* Language Selection */}
+            {/* Language Selection - Fixed responsive layout */}
             <div className="space-y-3">
               <label className="text-sm font-medium flex items-center gap-2">
                 <Languages className="h-4 w-4" />
                 {t("profile.language")}
               </label>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-1 xs:grid-cols-2 gap-2 sm:gap-3">
                 {languageOptions.map((option) => (
                   <Button
                     key={option.value}
                     variant={language === option.value ? "default" : "outline"}
                     onClick={() => setLanguage(option.value as "id" | "en")}
-                    className="justify-start gap-2"
-                    leftIcon={<span className="text-lg">{option.flag}</span>}
+                    className="justify-start gap-2 sm:gap-3 h-11 sm:h-12 px-3 sm:px-4"
+                    size="sm"
                   >
-                    {option.label}
+                    <span className="text-base sm:text-lg flex-shrink-0">
+                      {option.flag}
+                    </span>
+                    <span className="text-sm sm:text-base text-left truncate">
+                      {option.label}
+                    </span>
                   </Button>
                 ))}
               </div>
             </div>
 
-            {/* Theme Selection */}
+            {/* Theme Selection - Fixed responsive layout */}
             <div className="space-y-3">
               <label className="text-sm font-medium flex items-center gap-2">
                 <Palette className="h-4 w-4" />
                 {t("profile.theme")}
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-2 sm:gap-3">
                 {themeOptions.map((option) => {
                   const Icon = option.icon;
                   return (
@@ -442,11 +447,13 @@ export default function Profile() {
                       key={option.value}
                       variant={theme === option.value ? "default" : "outline"}
                       onClick={() => setTheme(option.value as any)}
-                      className="flex-col gap-1 h-auto py-3"
+                      className="flex-col gap-1 sm:gap-2 h-auto py-2 sm:py-3 px-2 sm:px-3"
                       size="sm"
                     >
-                      <Icon className="h-4 w-4" />
-                      <span className="text-xs">{option.label}</span>
+                      <Icon className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                      <span className="text-xs sm:text-sm text-center leading-tight">
+                        {option.label}
+                      </span>
                     </Button>
                   );
                 })}
